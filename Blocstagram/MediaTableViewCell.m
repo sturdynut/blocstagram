@@ -117,8 +117,10 @@ static NSParagraphStyle *paragraphStyle;
     NSMutableAttributedString *mutableUsernameAndCaptionString = [[NSMutableAttributedString alloc] initWithString:baseString attributes:attributes];
     
     NSRange usernameRange = [baseString rangeOfString:self.mediaItem.user.userName];
+    NSRange captionRange = [baseString rangeOfString:self.mediaItem.caption];
     [mutableUsernameAndCaptionString addAttribute:NSFontAttributeName value:[boldFont fontWithSize:usernameFontSize] range:usernameRange];
     [mutableUsernameAndCaptionString addAttribute:NSForegroundColorAttributeName value:linkColor range:usernameRange];
+    [mutableUsernameAndCaptionString addAttribute:NSKernAttributeName value:@5 range:captionRange];
     
     return mutableUsernameAndCaptionString;
 }
