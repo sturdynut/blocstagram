@@ -24,6 +24,7 @@ static UIFont *boldFont;
 static UIColor *usernameLabelGray;
 static UIColor *commentLabelGray;
 static UIColor *linkColor;
+static UIColor *orangeColor;
 static NSParagraphStyle *paragraphStyle;
 
 @implementation MediaTableViewCell
@@ -53,6 +54,7 @@ static NSParagraphStyle *paragraphStyle;
     usernameLabelGray = [self colorFromHexString:@"#eeeeee"];
     commentLabelGray = [self colorFromHexString:@"#e5e5e5"];
     linkColor = [self colorFromHexString:@"#58506d"];
+    orangeColor = [self colorFromHexString:@"#f15a24"];
     
     NSMutableParagraphStyle *mutableParagraphStyle = [[NSMutableParagraphStyle alloc] init];
     mutableParagraphStyle.headIndent = 20.0;
@@ -124,6 +126,7 @@ static NSParagraphStyle *paragraphStyle;
 -(NSAttributedString *) commentString {
     NSMutableAttributedString *commentString = [[NSMutableAttributedString alloc] init];
     
+    BOOL first = true;
     for (Comment *comment in self.mediaItem.comments) {
         NSString *baseString = [NSString stringWithFormat:@"%@ %@\n", comment.from.userName, comment.text];
         
@@ -132,7 +135,15 @@ static NSParagraphStyle *paragraphStyle;
         
         NSRange usernameRange = [baseString rangeOfString:comment.from.userName];
         [oneCommentString addAttribute:NSFontAttributeName value:boldFont range:usernameRange];
-        [oneCommentString addAttribute:NSForegroundColorAttributeName value:linkColor range:usernameRange];
+        
+        if (first == true) {
+            first = false;
+            NSRange fullRange = NSMakeRange(0, baseString.length);
+            [oneCommentString addAttribute:NSForegroundColorAttributeName value:orangeColor range:fullRange];
+        }
+        else {
+            [oneCommentString addAttribute:NSForegroundColorAttributeName value:linkColor range:usernameRange];
+        }
         
         [commentString appendAttributedString:oneCommentString];
     }
