@@ -37,7 +37,7 @@ static NSParagraphStyle *paragraphStyle;
     return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
 
-+(CGFloat) heightForMediaItem:(Media *)mediaItem width:(CGFloat)width {
++ (CGFloat) heightForMediaItem:(Media *)mediaItem width:(CGFloat)width {
     MediaTableViewCell *layoutCell = [[MediaTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"layout"];
     
     layoutCell.frame = CGRectMake(0, 0, width, CGFLOAT_MAX);
@@ -48,7 +48,18 @@ static NSParagraphStyle *paragraphStyle;
     return CGRectGetMaxY(layoutCell.commentLabel.frame);
 }
 
-+(void)load {
++ (void) setParagraphStyle:(NSTextAlignment)alignment {
+    NSMutableParagraphStyle *mutableParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+    mutableParagraphStyle.headIndent = 20.0;
+    mutableParagraphStyle.firstLineHeadIndent = 20.0;
+    mutableParagraphStyle.tailIndent = -20.0;
+    mutableParagraphStyle.paragraphSpacingBefore = 5;
+    mutableParagraphStyle.alignment = alignment;
+    
+    paragraphStyle = mutableParagraphStyle;
+}
+
++ (void)load {
     lightFont = [UIFont fontWithName:@"HelveticaNeue-Thin" size:11];
     boldFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11];
     usernameLabelGray = [self colorFromHexString:@"#eeeeee"];
@@ -56,13 +67,7 @@ static NSParagraphStyle *paragraphStyle;
     linkColor = [self colorFromHexString:@"#58506d"];
     orangeColor = [self colorFromHexString:@"#f15a24"];
     
-    NSMutableParagraphStyle *mutableParagraphStyle = [[NSMutableParagraphStyle alloc] init];
-    mutableParagraphStyle.headIndent = 20.0;
-    mutableParagraphStyle.firstLineHeadIndent = 20.0;
-    mutableParagraphStyle.tailIndent = -20.0;
-    mutableParagraphStyle.paragraphSpacingBefore = 5;
-    
-    paragraphStyle = mutableParagraphStyle;
+    [self setParagraphStyle:NSTextAlignmentLeft];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -109,7 +114,7 @@ static NSParagraphStyle *paragraphStyle;
     self.commentLabel.attributedText = [self commentString];
 }
 
--(NSAttributedString *) usernameAndCaptionString {
+- (NSAttributedString *) usernameAndCaptionString {
     CGFloat usernameFontSize = 15;
     NSString *baseString = [NSString stringWithFormat:@"%@ %@", self.mediaItem.user.userName, self.mediaItem.caption];
     
@@ -125,22 +130,33 @@ static NSParagraphStyle *paragraphStyle;
     return mutableUsernameAndCaptionString;
 }
 
--(NSAttributedString *) commentString {
+- (NSAttributedString *) commentString {
     NSMutableAttributedString *commentString = [[NSMutableAttributedString alloc] init];
     
-    BOOL first = true;
-    for (Comment *comment in self.mediaItem.comments) {
+    for (int i=0; i<self.mediaItem.comments.count; i++) {
+        BOOL first = i == 0;
+        BOOL even = i % 2 == 0;
+        
+        Comment *comment = self.mediaItem.comments[i];
+        
         NSString *baseString = [NSString stringWithFormat:@"%@ %@\n", comment.from.userName, comment.text];
+        
+        if (even) {
+            [MediaTableViewCell setParagraphStyle:NSTextAlignmentRight];
+        }
+        else {
+            [MediaTableViewCell setParagraphStyle:NSTextAlignmentLeft];
+        }
         
         NSDictionary *attributes = @{NSFontAttributeName: lightFont, NSParagraphStyleAttributeName: paragraphStyle};
         NSMutableAttributedString *oneCommentString = [[NSMutableAttributedString alloc] initWithString:baseString attributes:attributes];
         
         NSRange usernameRange = [baseString rangeOfString:comment.from.userName];
+        NSRange fullRange = NSMakeRange(0, baseString.length);
+        
         [oneCommentString addAttribute:NSFontAttributeName value:boldFont range:usernameRange];
         
         if (first == true) {
-            first = false;
-            NSRange fullRange = NSMakeRange(0, baseString.length);
             [oneCommentString addAttribute:NSForegroundColorAttributeName value:orangeColor range:fullRange];
         }
         else {
@@ -153,7 +169,7 @@ static NSParagraphStyle *paragraphStyle;
     return commentString;
 }
 
--(CGSize) sizeOfString:(NSAttributedString *)string {
+- (CGSize) sizeOfString:(NSAttributedString *)string {
     CGSize maxSize = CGSizeMake(CGRectGetWidth(self.contentView.bounds) - 40, 0.0);
     CGRect sizeRect = [string boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin context:nil];
     sizeRect.size.height += 20;
