@@ -44,6 +44,7 @@
 		49B331851BF57E34004E1E04 /* 10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 49B331691BF57E34004E1E04 /* 10.jpg */; };
 		49B331861BF57E34004E1E04 /* 10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 49B331691BF57E34004E1E04 /* 10.jpg */; };
 		49B331871BF57E34004E1E04 /* 10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 49B331691BF57E34004E1E04 /* 10.jpg */; };
+		49DAC4351C14B8480059D2E6 /* MediaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DAC4341C14B8480059D2E6 /* MediaTableViewCell.m */; };
 		49EDE33E1BF4169900C70B57 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EDE33D1BF4169900C70B57 /* main.m */; };
 		49EDE3411BF4169900C70B57 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EDE3401BF4169900C70B57 /* AppDelegate.m */; };
 		49EDE3491BF4169900C70B57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49EDE3481BF4169900C70B57 /* Assets.xcassets */; };
@@ -90,6 +91,8 @@
 		49B331671BF57E34004E1E04 /* 8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8.jpg; sourceTree = "<group>"; };
 		49B331681BF57E34004E1E04 /* 9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 9.jpg; sourceTree = "<group>"; };
 		49B331691BF57E34004E1E04 /* 10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10.jpg; sourceTree = "<group>"; };
+		49DAC4331C14B8480059D2E6 /* MediaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaTableViewCell.h; sourceTree = "<group>"; };
+		49DAC4341C14B8480059D2E6 /* MediaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaTableViewCell.m; sourceTree = "<group>"; };
 		49EDE3391BF4169900C70B57 /* Blocstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blocstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49EDE33D1BF4169900C70B57 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		49EDE33F1BF4169900C70B57 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -179,6 +182,8 @@
 				49EDE33C1BF4169900C70B57 /* Supporting Files */,
 				49B3315B1BF571EA004E1E04 /* ImagesTableViewController.h */,
 				49B3315C1BF571EA004E1E04 /* ImagesTableViewController.m */,
+				49DAC4331C14B8480059D2E6 /* MediaTableViewCell.h */,
+				49DAC4341C14B8480059D2E6 /* MediaTableViewCell.m */,
 				494DE25B1C0FBD1100E4C027 /* User.h */,
 				494DE25C1C0FBD1100E4C027 /* User.m */,
 				494DE25E1C0FBE5500E4C027 /* Media.h */,
@@ -378,6 +383,7 @@
 			files = (
 				494DE25D1C0FBD1100E4C027 /* User.m in Sources */,
 				494DE2631C0FBEFE00E4C027 /* Comment.m in Sources */,
+				49DAC4351C14B8480059D2E6 /* MediaTableViewCell.m in Sources */,
 				494DE2601C0FBE5500E4C027 /* Media.m in Sources */,
 				49EDE3411BF4169900C70B57 /* AppDelegate.m in Sources */,
 				494DE2661C0FBF9400E4C027 /* DataSource.m in Sources */,
