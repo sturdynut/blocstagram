@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		494DE25D1C0FBD1100E4C027 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 494DE25C1C0FBD1100E4C027 /* User.m */; };
+		494DE2601C0FBE5500E4C027 /* Media.m in Sources */ = {isa = PBXBuildFile; fileRef = 494DE25F1C0FBE5500E4C027 /* Media.m */; };
+		494DE2631C0FBEFE00E4C027 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 494DE2621C0FBEFE00E4C027 /* Comment.m */; };
+		494DE2661C0FBF9400E4C027 /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 494DE2651C0FBF9400E4C027 /* DataSource.m */; };
 		49B3315D1BF571EA004E1E04 /* ImagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3315C1BF571EA004E1E04 /* ImagesTableViewController.m */; };
 		49B3315E1BF571EA004E1E04 /* ImagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3315C1BF571EA004E1E04 /* ImagesTableViewController.m */; };
 		49B3315F1BF571EA004E1E04 /* ImagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3315C1BF571EA004E1E04 /* ImagesTableViewController.m */; };
@@ -66,6 +70,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		494DE25B1C0FBD1100E4C027 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		494DE25C1C0FBD1100E4C027 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		494DE25E1C0FBE5500E4C027 /* Media.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Media.h; sourceTree = "<group>"; };
+		494DE25F1C0FBE5500E4C027 /* Media.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Media.m; sourceTree = "<group>"; };
+		494DE2611C0FBEFE00E4C027 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
+		494DE2621C0FBEFE00E4C027 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
+		494DE2641C0FBF9400E4C027 /* DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSource.h; sourceTree = "<group>"; };
+		494DE2651C0FBF9400E4C027 /* DataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSource.m; sourceTree = "<group>"; };
 		49B3315B1BF571EA004E1E04 /* ImagesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesTableViewController.h; sourceTree = "<group>"; };
 		49B3315C1BF571EA004E1E04 /* ImagesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesTableViewController.m; sourceTree = "<group>"; };
 		49B331601BF57E34004E1E04 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
@@ -167,6 +179,14 @@
 				49EDE33C1BF4169900C70B57 /* Supporting Files */,
 				49B3315B1BF571EA004E1E04 /* ImagesTableViewController.h */,
 				49B3315C1BF571EA004E1E04 /* ImagesTableViewController.m */,
+				494DE25B1C0FBD1100E4C027 /* User.h */,
+				494DE25C1C0FBD1100E4C027 /* User.m */,
+				494DE25E1C0FBE5500E4C027 /* Media.h */,
+				494DE25F1C0FBE5500E4C027 /* Media.m */,
+				494DE2611C0FBEFE00E4C027 /* Comment.h */,
+				494DE2621C0FBEFE00E4C027 /* Comment.m */,
+				494DE2641C0FBF9400E4C027 /* DataSource.h */,
+				494DE2651C0FBF9400E4C027 /* DataSource.m */,
 			);
 			path = Blocstagram;
 			sourceTree = "<group>";
@@ -356,7 +376,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				494DE25D1C0FBD1100E4C027 /* User.m in Sources */,
+				494DE2631C0FBEFE00E4C027 /* Comment.m in Sources */,
+				494DE2601C0FBE5500E4C027 /* Media.m in Sources */,
 				49EDE3411BF4169900C70B57 /* AppDelegate.m in Sources */,
+				494DE2661C0FBF9400E4C027 /* DataSource.m in Sources */,
 				49EDE33E1BF4169900C70B57 /* main.m in Sources */,
 				49B3315D1BF571EA004E1E04 /* ImagesTableViewController.m in Sources */,
 			);
