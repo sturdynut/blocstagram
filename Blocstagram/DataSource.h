@@ -7,14 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "User.h"
-#import "Media.h"
-#import "Comment.h"
+
+@class Media;
 
 @interface DataSource : NSObject
 
-+(instancetype) sharedInstance;
++ (instancetype) sharedInstance;
 
-@property (nonatomic, strong, readonly) NSArray *mediaItems;
+@property (nonatomic, strong, readonly) NSMutableArray *mediaItems;
+
+- (void) deleteMediaItem:(Media *)item;
 
 @end
