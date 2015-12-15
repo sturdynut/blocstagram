@@ -11,6 +11,7 @@
 		494DE2601C0FBE5500E4C027 /* Media.m in Sources */ = {isa = PBXBuildFile; fileRef = 494DE25F1C0FBE5500E4C027 /* Media.m */; };
 		494DE2631C0FBEFE00E4C027 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 494DE2621C0FBEFE00E4C027 /* Comment.m */; };
 		494DE2661C0FBF9400E4C027 /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 494DE2651C0FBF9400E4C027 /* DataSource.m */; };
+		498BBB8C1C1FA19A00065185 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 498BBB8B1C1FA19A00065185 /* LoginViewController.m */; };
 		49B3315D1BF571EA004E1E04 /* ImagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3315C1BF571EA004E1E04 /* ImagesTableViewController.m */; };
 		49B3315E1BF571EA004E1E04 /* ImagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3315C1BF571EA004E1E04 /* ImagesTableViewController.m */; };
 		49B3315F1BF571EA004E1E04 /* ImagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3315C1BF571EA004E1E04 /* ImagesTableViewController.m */; };
@@ -79,6 +80,8 @@
 		494DE2621C0FBEFE00E4C027 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		494DE2641C0FBF9400E4C027 /* DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSource.h; sourceTree = "<group>"; };
 		494DE2651C0FBF9400E4C027 /* DataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSource.m; sourceTree = "<group>"; };
+		498BBB8A1C1FA19A00065185 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		498BBB8B1C1FA19A00065185 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		49B3315B1BF571EA004E1E04 /* ImagesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesTableViewController.h; sourceTree = "<group>"; };
 		49B3315C1BF571EA004E1E04 /* ImagesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesTableViewController.m; sourceTree = "<group>"; };
 		49B331601BF57E34004E1E04 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
@@ -192,6 +195,8 @@
 				494DE2621C0FBEFE00E4C027 /* Comment.m */,
 				494DE2641C0FBF9400E4C027 /* DataSource.h */,
 				494DE2651C0FBF9400E4C027 /* DataSource.m */,
+				498BBB8A1C1FA19A00065185 /* LoginViewController.h */,
+				498BBB8B1C1FA19A00065185 /* LoginViewController.m */,
 			);
 			path = Blocstagram;
 			sourceTree = "<group>";
@@ -386,6 +391,7 @@
 				49DAC4351C14B8480059D2E6 /* MediaTableViewCell.m in Sources */,
 				494DE2601C0FBE5500E4C027 /* Media.m in Sources */,
 				49EDE3411BF4169900C70B57 /* AppDelegate.m in Sources */,
+				498BBB8C1C1FA19A00065185 /* LoginViewController.m in Sources */,
 				494DE2661C0FBF9400E4C027 /* DataSource.m in Sources */,
 				49EDE33E1BF4169900C70B57 /* main.m in Sources */,
 				49B3315D1BF571EA004E1E04 /* ImagesTableViewController.m in Sources */,
