@@ -33,7 +33,8 @@
 }
 
 -(void) dealloc {
-    [[DataSource sharedInstance] removeObserver:self forKeyPath:@"mediaItems"];
+//    @todo: Why is this blowing up?
+//    [[DataSource sharedInstance] removeObserver:self forKeyPath:@"mediaItems"];
 }
 
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
