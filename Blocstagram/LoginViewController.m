@@ -19,6 +19,10 @@
 
 NSString *const LoginViewControllerDidGetAccessTokenNotification = @"LoginViewControllerDidGetAccessTokenNotification";
 
+- (NSString *)loginURI {
+    return [NSString stringWithFormat:@"https://instagram.com/oauth/authorize/?client_id=%@&redirect_uri=%@&response_type=token", [DataSource instagramClientID], [self redirectURI]];
+}
+
 - (NSString *)redirectURI {
     return @"http://bloc.io";
 }
@@ -35,7 +39,9 @@ NSString *const LoginViewControllerDidGetAccessTokenNotification = @"LoginViewCo
     
     self.title = NSLocalizedString(@"Login", @"Login");
     
-    NSString *urlString = [NSString stringWithFormat:@"https://instagram.com/oauth/authorize/?client_id=%@&redirect_uri=%@&response_type=token", [DataSource instagramClientID], [self redirectURI]];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+    
+    NSString *urlString = [self loginURI];
     NSURL *url = [NSURL URLWithString:urlString];
     
     if (url) {
@@ -81,6 +87,10 @@ NSString *const LoginViewControllerDidGetAccessTokenNotification = @"LoginViewCo
     }
     
     return YES;
+}
+
+- (void) back {
+    [self.webView goBack];
 }
 
 @end
