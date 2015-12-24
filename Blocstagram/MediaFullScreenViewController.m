@@ -8,12 +8,14 @@
 
 #import "MediaFullScreenViewController.h"
 #import "Media.h"
+#import "ShareManager.h"
 
 @interface MediaFullScreenViewController () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) Media *media;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) UITapGestureRecognizer *doubleTap;
+@property (nonatomic, strong) UIButton *shareButton;
 
 @end
 
@@ -44,6 +46,13 @@
     
     [self.scrollView addGestureRecognizer:self.tap];
     [self.scrollView addGestureRecognizer:self.doubleTap];
+    
+    self.shareButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.shareButton addTarget:self action:@selector(shareClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.shareButton setTitle:NSLocalizedString(@"Share", @"Share") forState:UIControlStateNormal];
+    self.shareButton.frame = CGRectMake(0, 20.0, 100.0, 50.0);
+    
+    [self.scrollView addSubview:self.shareButton];
 }
 
 - (void) viewWillLayoutSubviews {
@@ -60,6 +69,8 @@
     
     self.scrollView.minimumZoomScale = minScale;
     self.scrollView.maximumZoomScale = 1;
+    
+    [self positionShareButton];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -97,6 +108,8 @@
     }
     
     self.imageView.frame = contentsFrame;
+    
+    [self positionShareButton];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -128,10 +141,32 @@
         CGFloat y = locationPoint.y - (height / 2);
         
         [self.scrollView zoomToRect:CGRectMake(x, y, width, height) animated:YES];
+        
+        [self positionShareButton];
     } else {
         // #9
         [self.scrollView setZoomScale:self.scrollView.minimumZoomScale animated:YES];
+        
+        [self positionShareButton];
     }
 }
 
+#pragma mark - Custom Methods
+
+- (void) shareClicked {
+    [ShareManager sharePhoto:self.media imageView:self.imageView viewController:self];
+}
+
+- (void) positionShareButton {
+    // Ref: http://stackoverflow.com/questions/8507333/set-view-position-to-top-right-programmatically-in-cocoa-touch
+    CGRect frame = self.shareButton.frame;
+    
+    //align on top right
+    CGFloat xPosition = CGRectGetWidth(self.scrollView.frame) - CGRectGetWidth(frame);
+    frame.origin = CGPointMake(ceil(xPosition), 0.0);
+    self.shareButton.frame = frame;
+    
+    //autoresizing so it stays at top right (flexible left and flexible bottom margin)
+    self.shareButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+}
 @end
