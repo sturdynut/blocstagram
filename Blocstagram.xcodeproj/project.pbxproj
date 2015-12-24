@@ -11,6 +11,8 @@
 		494DE2601C0FBE5500E4C027 /* Media.m in Sources */ = {isa = PBXBuildFile; fileRef = 494DE25F1C0FBE5500E4C027 /* Media.m */; };
 		494DE2631C0FBEFE00E4C027 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 494DE2621C0FBEFE00E4C027 /* Comment.m */; };
 		494DE2661C0FBF9400E4C027 /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 494DE2651C0FBF9400E4C027 /* DataSource.m */; };
+		498950CE1C2C807D00E7B165 /* MediaFullScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 498950CD1C2C807D00E7B165 /* MediaFullScreenViewController.m */; };
+		498950D11C2C88EC00E7B165 /* MediaFullScreenAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 498950D01C2C88EC00E7B165 /* MediaFullScreenAnimator.m */; };
 		498BBB8C1C1FA19A00065185 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 498BBB8B1C1FA19A00065185 /* LoginViewController.m */; };
 		49B3315D1BF571EA004E1E04 /* ImagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3315C1BF571EA004E1E04 /* ImagesTableViewController.m */; };
 		49B3315E1BF571EA004E1E04 /* ImagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3315C1BF571EA004E1E04 /* ImagesTableViewController.m */; };
@@ -84,6 +86,10 @@
 		494DE2621C0FBEFE00E4C027 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		494DE2641C0FBF9400E4C027 /* DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSource.h; sourceTree = "<group>"; };
 		494DE2651C0FBF9400E4C027 /* DataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSource.m; sourceTree = "<group>"; };
+		498950CC1C2C807D00E7B165 /* MediaFullScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaFullScreenViewController.h; sourceTree = "<group>"; };
+		498950CD1C2C807D00E7B165 /* MediaFullScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaFullScreenViewController.m; sourceTree = "<group>"; };
+		498950CF1C2C88EC00E7B165 /* MediaFullScreenAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaFullScreenAnimator.h; sourceTree = "<group>"; };
+		498950D01C2C88EC00E7B165 /* MediaFullScreenAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaFullScreenAnimator.m; sourceTree = "<group>"; };
 		498BBB8A1C1FA19A00065185 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		498BBB8B1C1FA19A00065185 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		49B3315B1BF571EA004E1E04 /* ImagesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesTableViewController.h; sourceTree = "<group>"; };
@@ -192,8 +198,12 @@
 				49EDE33C1BF4169900C70B57 /* Supporting Files */,
 				49B3315B1BF571EA004E1E04 /* ImagesTableViewController.h */,
 				49B3315C1BF571EA004E1E04 /* ImagesTableViewController.m */,
+				498950CF1C2C88EC00E7B165 /* MediaFullScreenAnimator.h */,
+				498950D01C2C88EC00E7B165 /* MediaFullScreenAnimator.m */,
 				49DAC4331C14B8480059D2E6 /* MediaTableViewCell.h */,
 				49DAC4341C14B8480059D2E6 /* MediaTableViewCell.m */,
+				498950CC1C2C807D00E7B165 /* MediaFullScreenViewController.h */,
+				498950CD1C2C807D00E7B165 /* MediaFullScreenViewController.m */,
 				494DE25B1C0FBD1100E4C027 /* User.h */,
 				494DE25C1C0FBD1100E4C027 /* User.m */,
 				494DE25E1C0FBE5500E4C027 /* Media.h */,
@@ -461,9 +471,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				498950CE1C2C807D00E7B165 /* MediaFullScreenViewController.m in Sources */,
 				494DE25D1C0FBD1100E4C027 /* User.m in Sources */,
 				494DE2631C0FBEFE00E4C027 /* Comment.m in Sources */,
 				49DAC4351C14B8480059D2E6 /* MediaTableViewCell.m in Sources */,
+				498950D11C2C88EC00E7B165 /* MediaFullScreenAnimator.m in Sources */,
 				494DE2601C0FBE5500E4C027 /* Media.m in Sources */,
 				49EDE3411BF4169900C70B57 /* AppDelegate.m in Sources */,
 				498BBB8C1C1FA19A00065185 /* LoginViewController.m in Sources */,
