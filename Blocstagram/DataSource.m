@@ -103,6 +103,7 @@
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (storedMediaItems.count > 0) {
+                        
                         NSMutableArray *mutableMediaItems = [storedMediaItems mutableCopy];
                         
                         [self willChangeValueForKey:@"mediaItems"];
@@ -112,6 +113,9 @@
                         for (Media* mediaItem in self.mediaItems) {
                             [self downloadImageForMediaItem:mediaItem];
                         }
+                        
+                        [self requestNewItemsWithCompletionHandler:^(NSError *error) {
+                        }];
                         
                     } else {
                         [self populateDataWithParameters:nil completionHandle:nil];
