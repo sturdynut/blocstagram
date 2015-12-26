@@ -90,6 +90,18 @@
     }];
 }
 
+- (void) downloadVisibleImages {
+    NSArray *visibleCellIndexPaths = [self.tableView indexPathsForVisibleRows];
+    
+    for (NSIndexPath *path in visibleCellIndexPaths) {
+        Media *media = [DataSource sharedInstance].mediaItems[path.row];
+        
+        if (media.downloadState == MediaDownloadStateNeedsImage) {
+            [[DataSource sharedInstance] downloadImageForMediaItem: media];
+        }
+    }
+}
+
 - (void) infiniteScrollIfNecessary {
     NSIndexPath *bottomIndexPath = [[self.tableView indexPathsForVisibleRows] lastObject];
     
@@ -114,6 +126,16 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self infiniteScrollIfNecessary];
+    
+    if (!scrollView.dragging) {
+        [self downloadVisibleImages];
+    }
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
+    
+    [self downloadVisibleImages];
 }
 
 #pragma mark - Table view data source
@@ -155,10 +177,14 @@
 }
 
 - (void) tableView:(UITableView *)tableView willDisplayCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    Media *mediaItem = [DataSource sharedInstance].mediaItems[indexPath.row];
     
-    if(mediaItem.downloadState == MediaDownloadStateNeedsImage) {
-        [[DataSource sharedInstance] downloadImageForMediaItem:mediaItem];
+    // Only download first few
+    if (indexPath.row < 4) {
+        Media *mediaItem = [DataSource sharedInstance].mediaItems[indexPath.row];
+        
+        if(mediaItem.downloadState == MediaDownloadStateNeedsImage) {
+            [[DataSource sharedInstance] downloadImageForMediaItem:mediaItem];
+        }
     }
 }
 

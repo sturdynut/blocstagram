@@ -149,7 +149,7 @@ static NSParagraphStyle *paragraphStyle;
         self.imageHeightContraint.constant = self.mediaItem.image.size.height / self.mediaItem.image.size.width * CGRectGetWidth(self.contentView.bounds);
     }
     else {
-        self.imageHeightContraint.constant = 0;
+        self.imageHeightContraint.constant = 300;
     }
     
     // Hide the separator lines
