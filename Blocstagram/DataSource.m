@@ -113,10 +113,6 @@
                         [self willChangeValueForKey:@"mediaItems"];
                         self.mediaItems = mutableMediaItems;
                         [self didChangeValueForKey:@"mediaItems"];
-                        // #1
-                        for (Media* mediaItem in self.mediaItems) {
-                            [self downloadImageForMediaItem:mediaItem];
-                        }
                         
                     } else {
                         [self populateDataWithParameters:nil completionHandle:nil];
@@ -182,7 +178,6 @@
         
         if (mediaItem) {
             [tmpMediaItems addObject:mediaItem];
-            [self downloadImageForMediaItem:mediaItem];
         }
     }
     
@@ -215,20 +210,41 @@
 
 - (void) downloadImageForMediaItem:(Media *)mediaItem {
     if (mediaItem.mediaURL && !mediaItem.image) {
+        
+        mediaItem.downloadState = MediaDownloadStateDownloadInProgress;
+        
         [self.instagramOperationManager GET:mediaItem.mediaURL.absoluteString
                                  parameters:nil
                                     success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                                         if ([responseObject isKindOfClass:[UIImage class]]) {
                                             mediaItem.image = responseObject;
+                                            mediaItem.downloadState = MediaDownloadStateHasImage;
                                             NSMutableArray *mutableArrayWithKVO = [self mutableArrayValueForKey:@"mediaItems"];
                                             NSUInteger index = [mutableArrayWithKVO indexOfObject:mediaItem];
                                             [mutableArrayWithKVO replaceObjectAtIndex:index withObject:mediaItem];
+                                            [self saveImages];
                                         }
-                                        
-                                        [self saveImages];
-                                        
+                                        else {
+                                            mediaItem.downloadState = MediaDownloadStateNonRecoverableError;
+                                        }
                                     } failure: ^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                                         NSLog(@"Error downloading image: %@", error);
+                                        
+                                        mediaItem.downloadState = MediaDownloadStateNonRecoverableError;
+                                        
+                                        if (error.code == NSURLErrorTimedOut ||
+                                            error.code == NSURLErrorCancelled ||
+                                            error.code == NSURLErrorCannotConnectToHost ||
+                                            error.code == NSURLErrorNetworkConnectionLost ||
+                                            error.code == NSURLErrorNotConnectedToInternet ||
+                                            error.code == kCFURLErrorInternationalRoamingOff ||
+                                            error.code == kCFURLErrorCallIsActive ||
+                                            error.code == kCFURLErrorDataNotAllowed ||
+                                            error.code == kCFURLErrorRequestBodyStreamExhausted) {
+                                            
+                                            // Could try again.
+                                            mediaItem.downloadState = MediaDownloadStateNeedsImage;
+                                        }
                                     }];
     }
 }
