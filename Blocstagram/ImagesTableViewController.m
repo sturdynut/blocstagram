@@ -184,6 +184,11 @@
     }
 }
 
+- (void) cell:(MediaTableViewCell *)cell didDoubleTouchImageView :(UIImageView *)imageView {
+    NSLog([NSString stringWithFormat:@"Retry download of %@", cell.mediaItem.caption]);
+    [[DataSource sharedInstance] downloadImageForMediaItem:cell.mediaItem];
+}
+
 #pragma mark - UIViewControllerTransitioningDelegate
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
