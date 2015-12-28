@@ -17,13 +17,17 @@
 @property (nonatomic, strong) UIImageView *mediaImageView;
 @property (nonatomic, strong) UILabel *usernameAndCaptionLabel;
 @property (nonatomic, strong) UILabel *commentLabel;
-@property (nonatomic, strong) NSLayoutConstraint *imageHeightContraint;
+@property (nonatomic, strong) NSLayoutConstraint *imageHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *usernameAndCaptionLabelHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *commentLabelHeightContraint;
 
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
+
 @property (nonatomic, strong) ComposeCommentView *commentView;
+
+@property (nonatomic, strong) NSArray *horizontallyRegularConstraints;
+@property (nonatomic, strong) NSArray *horizontallyCompactConstraints;
 
 @end
 
@@ -44,16 +48,25 @@ static NSParagraphStyle *paragraphStyle;
     return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
 
-+(CGFloat) heightForMediaItem:(Media *)mediaItem width:(CGFloat)width {
++(CGFloat) heightForMediaItem:(Media *)mediaItem width:(CGFloat)width traitCollection:(UITraitCollection *) traitCollection {
     MediaTableViewCell *layoutCell = [[MediaTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"layout"];
     
     layoutCell.mediaItem = mediaItem;
     layoutCell.frame = CGRectMake(0, 0, width, CGRectGetHeight(layoutCell.frame));
+    layoutCell.overrideTraitCollection = traitCollection;
     
     [layoutCell setNeedsDisplay];
     [layoutCell layoutIfNeeded];
     
     return CGRectGetMaxY(layoutCell.commentView.frame);
+}
+
+- (UITraitCollection *) traitCollection {
+    if (self.overrideTraitCollection) {
+        return self.overrideTraitCollection;
+    }
+    
+    return [super traitCollection];
 }
 
 +(void)load {
@@ -115,7 +128,28 @@ static NSParagraphStyle *paragraphStyle;
         
         NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_mediaImageView, _usernameAndCaptionLabel, _commentLabel, _commentView);
         
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_mediaImageView]|" options:kNilOptions metrics:nil views:viewDictionary]];
+        
+        self.horizontallyCompactConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_mediaImageView]|" options:kNilOptions metrics:nil views:viewDictionary];
+        
+        NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:_mediaImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:320];
+        NSLayoutConstraint *centerConstraint = [NSLayoutConstraint constraintWithItem:self.contentView
+                                                                            attribute:NSLayoutAttributeCenterX
+                                                                            relatedBy:0
+                                                                               toItem:_mediaImageView
+                                                                            attribute:NSLayoutAttributeCenterX
+                                                                           multiplier:1
+                                                                             constant:0];
+        
+        self.horizontallyRegularConstraints = @[widthConstraint, centerConstraint];
+        
+        if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
+            /* It's compact! */
+            [self.contentView addConstraints:self.horizontallyCompactConstraints];
+        } else if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
+            /* It's regular! */
+            [self.contentView addConstraints:self.horizontallyRegularConstraints];
+        }
+        
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_usernameAndCaptionLabel]|" options:kNilOptions metrics:nil views:viewDictionary]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_commentLabel]|" options:kNilOptions metrics:nil views:viewDictionary]];
          [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_commentView]|" options:kNilOptions metrics:nil views:viewDictionary]];
@@ -127,9 +161,9 @@ static NSParagraphStyle *paragraphStyle;
                                                                                    views:viewDictionary]];
         
         
-        self.imageHeightContraint = [NSLayoutConstraint constraintWithItem:_mediaImageView
+        self.imageHeightConstraint = [NSLayoutConstraint constraintWithItem:_mediaImageView
                                                                  attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:100];
-        self.imageHeightContraint.identifier = @"Image height constraint";
+        self.imageHeightConstraint.identifier = @"Image height constraint";
         
         self.usernameAndCaptionLabelHeightConstraint = [NSLayoutConstraint constraintWithItem:_usernameAndCaptionLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:100];
         
@@ -139,10 +173,7 @@ static NSParagraphStyle *paragraphStyle;
         
         self.commentLabelHeightContraint.identifier = @"Comment label height constraint";
         
-        [self.contentView addConstraints:@[self.imageHeightContraint, self.usernameAndCaptionLabelHeightConstraint, self.commentLabelHeightContraint]];
-        
-       
-        
+        [self.contentView addConstraints:@[self.imageHeightConstraint, self.usernameAndCaptionLabelHeightConstraint, self.commentLabelHeightContraint]];
     }
     
     return self;
@@ -160,14 +191,32 @@ static NSParagraphStyle *paragraphStyle;
     self.commentLabelHeightContraint.constant = commentLabelSize.height == 0 ? 0 : commentLabelSize.height + 20;
     
     if (self.mediaItem.image.size.width > 0 && CGRectGetWidth(self.contentView.bounds) > 0) {
-        self.imageHeightContraint.constant = self.mediaItem.image.size.height / self.mediaItem.image.size.width * CGRectGetWidth(self.contentView.bounds);
+        if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
+            /* It's compact! */
+            self.imageHeightConstraint.constant = self.mediaItem.image.size.height / self.mediaItem.image.size.width * CGRectGetWidth(self.contentView.bounds);
+        } else if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
+            /* It's regular! */
+            self.imageHeightConstraint.constant = 320;
+        }
     }
     else {
-        self.imageHeightContraint.constant = 0;
+        self.imageHeightConstraint.constant = 0;
     }
     
     // Hide the separator lines
     self.separatorInset = UIEdgeInsetsMake(0, CGRectGetWidth(self.bounds)/2.0, 0, CGRectGetWidth(self.bounds)/2.0);
+}
+
+- (void) traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
+        /* It's compact! */
+        [self.contentView removeConstraints:self.horizontallyRegularConstraints];
+        [self.contentView addConstraints:self.horizontallyCompactConstraints];
+    } else if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
+        /* It's regular */
+        [self.contentView removeConstraints:self.horizontallyCompactConstraints];
+        [self.contentView addConstraints:self.horizontallyRegularConstraints];
+    }
 }
 
 - (void) setMediaItem:(Media *)mediaItem {
