@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) Media *media;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
+@property (nonatomic, strong) UITapGestureRecognizer *windowTap;
 @property (nonatomic, strong) UITapGestureRecognizer *doubleTap;
 
 @end
@@ -36,6 +37,9 @@
     self.scrollView.contentSize = self.media.image.size;
     
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired:)];
+    // Question: Is this doing anything?
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    self.windowTap = [[UITapGestureRecognizer alloc] initWithTarget:window action:@selector(tapFired:)];
     
     self.doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapFired:)];
     self.doubleTap.numberOfTapsRequired = 2;
